@@ -4,7 +4,7 @@ version: 2.1
 jobs:
     test:
       docker:
-        - image: node:14.4-alpine3.12
+        - image: circleci/node:14.4-browsers
       steps:
         - checkout
         - run:
