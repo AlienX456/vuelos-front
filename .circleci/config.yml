@@ -12,7 +12,7 @@ jobs:
             command: npm install
         - run:
             name: Running unit test
-            command: npm test
+            command: ng test --browsers ChromeHeadless --watch=false
 
 
 workflows:
