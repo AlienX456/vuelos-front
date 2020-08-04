@@ -1,0 +1,22 @@
+version: 2.1
+
+
+jobs:
+    test:
+      docker:
+        - image: node:14.4-alpine3.12
+      steps:
+        - checkout
+        - run:
+            name: install packages
+            command: npm install
+        - run:
+            name: Running unit test
+            command: npm test
+
+
+workflows:
+    angular-test:
+        jobs:
+         - test
+            
