@@ -8,6 +8,7 @@ import { LogInComponent } from './componentes/log-in/log-in.component';
 import { LlegadasComponent } from './componentes/llegadas/llegadas.component';
 import { SalidasComponent } from './componentes/salidas/salidas.component';
 import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.component';
+import { MenuComponent } from './componentes/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.c
     LogInComponent,
     LlegadasComponent,
     SalidasComponent,
-    EstadisticasComponent
+    EstadisticasComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
