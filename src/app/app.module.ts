@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './componentes/header/header.component';
 import { LogInComponent } from './componentes/log-in/log-in.component';
 import { LlegadasComponent } from './componentes/llegadas/llegadas.component';
 import { SalidasComponent } from './componentes/salidas/salidas.component';
@@ -13,7 +12,6 @@ import { MenuComponent } from './componentes/menu/menu.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     LogInComponent,
     LlegadasComponent,
     SalidasComponent,
