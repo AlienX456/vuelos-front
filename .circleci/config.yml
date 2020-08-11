@@ -9,13 +9,13 @@ jobs:
         - checkout
         - run:
             name: Install angular-cli
-            command: npm install -g @angular/cli 
+            command: npm install @angular/cli 
         - run:
             name: Install packages
             command: npm install
         - run:
             name: Running unit test
-            command: npm test -- --browsers ChromeHeadless --watch=false
+            command: node_modules/@angular/cli/bin/ng test -- --browsers ChromeHeadless --watch=false
 
 
 workflows:
