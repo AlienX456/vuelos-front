@@ -8,7 +8,10 @@ jobs:
       steps:
         - checkout
         - run:
-            name: install packages
+            name: Install angular-cli
+            command: npm install -g @angular/cli 
+        - run:
+            name: Install packages
             command: npm install
         - run:
             name: Running unit test
