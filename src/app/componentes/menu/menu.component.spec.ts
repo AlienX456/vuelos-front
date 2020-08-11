@@ -15,6 +15,18 @@ import {By} from '@angular/platform-browser'
 
 
 describe('MenuComponent', () => {
+
+  let component: MenuComponent;
+
+  let fixture: ComponentFixture<MenuComponent>;
+
+  let location : Location;
+
+  let router : Router;
+
+  let debugElement : DebugElement;
+
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MenuComponent, LogInComponent, LlegadasComponent, SalidasComponent, EstadisticasComponent ],
@@ -35,47 +47,33 @@ describe('MenuComponent', () => {
         ])
       ]
     })
-    .compileComponents();
-  }));
 
-  let component: MenuComponent;
-
-  let fixture: ComponentFixture<MenuComponent>;
-
-  let location : Location;
-
-  let router : Router;
-
-  let debugElement : DebugElement;
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MenuComponent);
-    debugElement = fixture.debugElement;
-    component = fixture.componentInstance;
+    router = TestBed.get(Router);
     location = TestBed.get(Location);
-    router = TestBed.get(Router)
+    fixture = TestBed.createComponent(MenuComponent);
 
-    fixture.detectChanges();
+    debugElement = fixture.debugElement;
 
+    router.initialNavigation();
 
-  });
+  }));
 
   it('Redirigir a /salidas cuando se realiza click en el boton Salidas', fakeAsync(() => {
     debugElement.query(By.css('.salidas-btn')).nativeElement.click();
     tick();
-    expect(location.path).toBe('/salidas');
+    expect(location.path()).toBe('/salidas');
   }));
 
   it('Redirigir a /llegadas cuando se realiza click en el boton Llegadas', fakeAsync(() => {
     debugElement.query(By.css('.llegadas-btn')).nativeElement.click();
     tick();
-    expect(location.path).toBe('/llegadas');
+    expect(location.path()).toBe('/llegadas');
   }));
 
   it('Redirigir a /stats cuando se realiza click en el boton Estadisticas', fakeAsync(() => {
     debugElement.query(By.css('.estadisticas-btn')).nativeElement.click();
     tick();
-    expect(location.path).toBe('/stats');
+    expect(location.path()).toBe('/stats');
   }))
 
 
