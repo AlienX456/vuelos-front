@@ -3,7 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import { ObtenerEstadisticasService } from './obtener-estadisticas.service';
 
 import { HttpClientTestingModule,HttpTestingController } from '@angular/common/http/testing';
-import { Estadistica } from '../interfaces/estadistica';
 import { Tipostat } from '../interfaces/tipostat';
 
 describe('ObtenerEstadisticasService', () => {
