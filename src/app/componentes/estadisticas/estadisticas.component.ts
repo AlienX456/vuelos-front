@@ -10,7 +10,7 @@ import { ObtenerEstadisticasService } from 'src/app/servicios/obtener-estadistic
 })
 export class EstadisticasComponent implements OnInit {
 
-  public estadistica: Estadistica;
+  public estadistica: Estadistica = null;
   public options;
   public selectedValue;
 
@@ -27,6 +27,7 @@ export class EstadisticasComponent implements OnInit {
     this.obtenerEstadisticasService.obtenerEstadisticas(cuerpo).subscribe(
       data => {
         this.estadistica = data;
+        this.estadistica.prom_pasajero = Math.round(this.estadistica.prom_pasajero.valueOf());
       },
       error => {
         console.log(error)

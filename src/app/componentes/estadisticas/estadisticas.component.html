@@ -7,3 +7,50 @@
     </div>
     <div class="col mx-2"><button id="btn-gen" class="btn bg-success estadisticas-btn" (click)="statsHandler()">Generar estadísticas</button></div>
 </div>
+
+<div *ngIf="!!estadistica" class="row w-75 mx-auto">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>Estadística</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Número de vuelos</th>
+            <td>{{estadistica.num_vuelos}}</td>
+          </tr>
+          <tr>
+            <th>Número de retrasos</th>
+            <td>{{estadistica.num_retrasos}}</td>
+          </tr>
+          <tr>
+            <th>Suma de retrasos</th>
+            <td>{{estadistica.sum_retrasos}}</td>
+          </tr>
+          <tr>
+            <th>Promedio de pasajeros</th>
+            <td>{{estadistica.prom_pasajero}}</td>
+          </tr>
+          <tr>
+            <th>Suma de pasajeros</th>
+            <td>{{estadistica.sum_pasajeros}}</td>
+          </tr>
+          <tr>
+            <th>Número de vuelos internacionales</th>
+            <td>{{estadistica.num_vuelos_internacionales}}</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- const mockStat =
+{
+  num_vuelos: 3,
+  num_retrasos: 3,
+  sum_retrasos: 12,
+  prom_pasajero: 106.66666666666667,
+  sum_pasajeros: 320,
+  num_vuelos_internacionales: 3
+}; -->
