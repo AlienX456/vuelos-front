@@ -11,23 +11,37 @@ import { ObtenerEstadisticasService } from 'src/app/servicios/obtener-estadistic
 export class EstadisticasComponent implements OnInit {
 
   public estadistica: Estadistica;
+  public options;
+  public selectedValue;
 
-  constructor(public obtenerEstadisticasService:ObtenerEstadisticasService) { }
+  constructor(public obtenerEstadisticasService:ObtenerEstadisticasService) {
+    this.options = [{value:"salidas",display:"Salidas"},{value:"llegadas",display:"LLegadas"}];
+   }
 
   ngOnInit(): void {
-    
+    (<HTMLInputElement> document.getElementById("btn-gen")).disabled = true;
   }
 
   obtenerEstadisticas(opcion){
-    const cuerpo : Tipostat = {tipo:opcion} 
-    this.obtenerEstadisticasService.obtenerEstadisticas(opcion).subscribe(
+    let cuerpo : Tipostat = {tipo: opcion};
+    this.obtenerEstadisticasService.obtenerEstadisticas(cuerpo).subscribe(
       data => {
         this.estadistica = data;
       },
       error => {
-        alert(error)
+        console.log(error)
       }
     )
+  }
+
+  statsHandler(){
+    this.obtenerEstadisticas(this.selectedValue);
+  }
+
+  selectChangeHandler(event: any) {
+    (<HTMLInputElement> document.getElementById("btn-gen")).disabled = false;
+    this.selectedValue = event.target.value;
+    console.log(this.selectedValue) 
   }
 
 }

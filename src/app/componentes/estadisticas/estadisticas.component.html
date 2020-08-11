@@ -1,1 +1,9 @@
-
+<div class="row justify-content-center my-5">
+    <div class="col text-right my-auto mx-2">
+        <select class="btn btn-secondary dropdown-toggle px-4" (change)="selectChangeHandler($event)">
+            <option disabled selected value>Seleccione una opción</option>
+            <option class="dropdown-item" *ngFor="let option of options" value='{{option.value}}'>{{option.display}}</option>
+        </select>
+    </div>
+    <div class="col mx-2"><button id="btn-gen" class="btn bg-success estadisticas-btn" (click)="statsHandler()">Generar estadísticas</button></div>
+</div>
