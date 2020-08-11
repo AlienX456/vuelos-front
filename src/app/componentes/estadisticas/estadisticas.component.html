@@ -1,1 +1,56 @@
-<p>estadisticas works!</p>
+<div class="row justify-content-center my-5">
+    <div class="col text-right my-auto mx-2">
+        <select class="btn btn-secondary dropdown-toggle px-4" (change)="selectChangeHandler($event)">
+            <option disabled selected value>Seleccione una opción</option>
+            <option class="dropdown-item" *ngFor="let option of options" value='{{option.value}}'>{{option.display}}</option>
+        </select>
+    </div>
+    <div class="col mx-2"><button id="btn-gen" class="btn bg-success estadisticas-btn" (click)="statsHandler()">Generar estadísticas</button></div>
+</div>
+
+<div *ngIf="!!estadistica" class="row w-75 mx-auto">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>Estadística</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Número de vuelos</td>
+            <td class="v-1">{{estadistica.num_vuelos}}</td>
+          </tr>
+          <tr>
+            <td>Número de retrasos</td>
+            <td class="v-2">{{estadistica.num_retrasos}}</td>
+          </tr>
+          <tr>
+            <td>Suma de retrasos</td>
+            <td class="v-3">{{estadistica.sum_retrasos}}</td>
+          </tr>
+          <tr>
+            <td>Promedio de pasajeros</td>
+            <td class="v-4">{{estadistica.prom_pasajero}}</td>
+          </tr>
+          <tr>
+            <td>Suma de pasajeros</td>
+            <td class="v-5">{{estadistica.sum_pasajeros}}</td>
+          </tr>
+          <tr>
+            <td>Número de vuelos internacionales</td>
+            <td class="v-6">{{estadistica.num_vuelos_internacionales}}</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- const mockStat =
+{
+  num_vuelos: 3,
+  num_retrasos: 3,
+  sum_retrasos: 12,
+  prom_pasajero: 106.66666666666667,
+  sum_pasajeros: 320,
+  num_vuelos_internacionales: 3
+}; -->
