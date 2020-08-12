@@ -25,7 +25,7 @@ export class SalidasComponent implements OnInit {
                 fecha: '',
                 retraso_horas: 0,
                 destino_ciudad: '',
-                internacional: '',
+                internacional: false,
                 aerolinea: '',
                 pasajeros: 0,
                 avion: ''
@@ -54,6 +54,7 @@ export class SalidasComponent implements OnInit {
     if ( salida.retraso_horas < 0 || salida.pasajeros < 0 || (new Date(salida.fecha) > current_date)) {
       this.valores_erroneos = true;
     }else{
+
       let cuerpo : Salida = salida;
       this.salidasservicioService.postSalida(cuerpo).subscribe(
         data =>{
