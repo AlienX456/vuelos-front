@@ -51,12 +51,16 @@ describe('MenuComponent', () => {
     router = TestBed.get(Router);
     location = TestBed.get(Location);
     fixture = TestBed.createComponent(MenuComponent);
-
     debugElement = fixture.debugElement;
-
+    component = fixture.componentInstance;
     router.initialNavigation();
+    fixture.detectChanges();
 
   }));
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
   it('Redirigir a /salidas cuando se realiza click en el boton Salidas', fakeAsync(() => {
     debugElement.query(By.css('.salidas-btn')).nativeElement.click();
