@@ -24,7 +24,6 @@ export class SalidasservicioService {
   }
 
   postSalida(salida: Salida){
-
     return this.http.post(this.url,salida,{headers:{'Content-Type':'application/json'},'responseType': "text" });
   }
 }

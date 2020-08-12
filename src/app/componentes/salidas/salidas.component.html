@@ -69,7 +69,7 @@
     
     </form>
   </div>
-  
+
 <form [formGroup]="getSalidasForm" (ngSubmit)="onSubmitFechas(getSalidasForm.value)">
 
   <div class="row w-50 my-5 mx-auto">
@@ -89,6 +89,7 @@
 
       <div class="col text-center">
         <button class="button btn bg-success text-light my-5" type="submit">Buscar</button>
+        <p *ngIf="sin_resultados"> No hay resultados, intente más tarde</p>
       </div>
   </div>
 

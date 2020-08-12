@@ -18,6 +18,8 @@ export class SalidasComponent implements OnInit {
   valores_erroneos;
   getSalidasForm;
   fecha_invalida;
+  sin_resultados;
+  error_busqueda;
   salidas:Salida[];
 
   constructor(private formBuilder: FormBuilder,
@@ -46,6 +48,10 @@ export class SalidasComponent implements OnInit {
               this.fecha_invalida = false;
 
               this.salidas = null;
+
+              this.sin_resultados = false;
+              this.error_busqueda = false;
+
               
               }
 
@@ -99,7 +105,14 @@ export class SalidasComponent implements OnInit {
       let param_fecha : Rango = fechas;  
 
       this.salidasservicioService.getSalidas(param_fecha).subscribe(
-        data => { this.salidas = data; console.log(data)}
+        data => { 
+          if (data.length == 0){
+            this.sin_resultados = true;
+          }else{
+            this.salidas = data;
+          }
+        },
+        error => {this.error_busqueda = true}
       );
 
     }

@@ -96,6 +96,22 @@ describe('SalidasComponent', () => {
     })
   );
 
+  it('Verificar que el valor de error_busqueda sea true cuando hubo error en la busqueda', async(() =>{
+    spyOn(service, 'getSalidas').and.returnValue(throwError({}));
+    fixture.componentInstance.onSubmitFechas({fecha_inicio : '2020-03-03',fecha_final:'2020-04-03'});
+    fixture.whenStable().then(()=>{expect(fixture.componentInstance.error_busqueda).toEqual(true)})
+    })
+  );
+
+
+  it('Verificar que si el arreglo de resultados luego de busqueda esta vacio, sin_resultados cambie a true', async(() =>{
+    let mockSalidas : Salida[] = []
+    spyOn(service, 'getSalidas').and.returnValue(of(mockSalidas));
+    fixture.componentInstance.onSubmitFechas({fecha_inicio : '2020-03-03',fecha_final:'2020-04-03'});
+    fixture.whenStable().then(()=>{expect(fixture.componentInstance.sin_resultados).toEqual(true);})
+    })
+  );
+
 
   
 });
