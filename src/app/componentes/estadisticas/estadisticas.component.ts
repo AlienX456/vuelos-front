@@ -13,9 +13,11 @@ export class EstadisticasComponent implements OnInit {
   public estadistica: Estadistica = null;
   public options;
   public selectedValue;
+  public error;
 
   constructor(public obtenerEstadisticasService:ObtenerEstadisticasService) {
     this.options = [{value:"salidas",display:"Salidas"},{value:"llegadas",display:"LLegadas"}];
+    this.error = false;
    }
 
   ngOnInit(): void {
@@ -23,6 +25,7 @@ export class EstadisticasComponent implements OnInit {
   }
 
   obtenerEstadisticas(opcion){
+    this.error = false;
     let cuerpo : Tipostat = {tipo: opcion};
     this.obtenerEstadisticasService.obtenerEstadisticas(cuerpo).subscribe(
       data => {
@@ -30,7 +33,7 @@ export class EstadisticasComponent implements OnInit {
         this.estadistica.prom_pasajero = Math.round(this.estadistica.prom_pasajero.valueOf());
       },
       error => {
-        console.log(error)
+        this.error = true;
       }
     )
   }
@@ -42,7 +45,6 @@ export class EstadisticasComponent implements OnInit {
   selectChangeHandler(event: any) {
     (<HTMLInputElement> document.getElementById("btn-gen")).disabled = false;
     this.selectedValue = event.target.value;
-    console.log(this.selectedValue) 
   }
 
 }

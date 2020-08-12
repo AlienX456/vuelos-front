@@ -4,8 +4,7 @@ import { EstadisticasComponent } from './estadisticas.component';
 import { ObtenerEstadisticasService } from 'src/app/servicios/obtener-estadisticas.service'
 import { HttpClientTestingModule} from '@angular/common/http/testing';
 import { of } from 'rxjs';
-import { Tipostat } from 'src/app/interfaces/tipostat';
-import { DebugElement } from '@angular/core';
+import { throwError } from 'rxjs';
 
 describe('EstadisticasComponent', () => {
   let component: EstadisticasComponent;
@@ -44,7 +43,7 @@ describe('EstadisticasComponent', () => {
     num_vuelos_internacionales: 3
   };
 
-  it('Verificar que la variable estadisticas obtenga valor luego del llamado de la función de busqueda', fakeAsync(() => {
+  it('Verificar que la variable estadisticas obtenga valor luego del llamado de la función de busqueda', async(() => {
 
   spyOn(service, 'obtenerEstadisticas').and.returnValue(of(mockStat));
   fixture.componentInstance.selectedValue = "salidas";
@@ -58,6 +57,16 @@ describe('EstadisticasComponent', () => {
 
   }))
 
+  it('Verificar que en caso de error la variable error cambie a true', async(() => {
+
+    spyOn(service, 'obtenerEstadisticas').and.returnValue(throwError({}));
+    fixture.componentInstance.selectedValue = "salidas";
+    fixture.componentInstance.statsHandler();
+    fixture.whenStable().then(()=>{ expect(fixture.componentInstance.error).toEqual(true)});
+  
+    }))
+
+
   it('Verificar que los valores de la variable entidad son reemplazados en tabla de forma correcta', () => {
     fixture.componentInstance.estadistica = mockStat;
     fixture.detectChanges();
@@ -67,6 +76,14 @@ describe('EstadisticasComponent', () => {
     expect(fixture.debugElement.query(By.css('.v-4')).nativeElement.textContent).toEqual(mockStat.prom_pasajero.toString());
     expect(fixture.debugElement.query(By.css('.v-5')).nativeElement.textContent).toEqual(mockStat.sum_pasajeros.toString());
     expect(fixture.debugElement.query(By.css('.v-6')).nativeElement.textContent).toEqual(mockStat.num_vuelos_internacionales.toString());
+  })
+
+  it('Verificar que el boton es habilitado una vez valor de selección es asignado', () => {
+    expect(fixture.debugElement.nativeElement.querySelector('#btn-gen').disabled).toBe(true);
+    fixture.componentInstance.selectChangeHandler({target:{value:0}});
+    expect(fixture.debugElement.nativeElement.querySelector('#btn-gen').disabled).toBe(false);
+    expect(fixture.componentInstance.selectedValue).toEqual(0)
+  
   })
 
 });

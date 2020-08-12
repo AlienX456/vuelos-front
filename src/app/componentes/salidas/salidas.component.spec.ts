@@ -112,6 +112,30 @@ describe('SalidasComponent', () => {
     })
   );
 
+  it('Verificar que si el valor de retraso es negativo la variable valores_erroneos cambie a true',()=>{
+    expect(fixture.componentInstance.valores_erroneos).toEqual(false);
+    fixture.componentInstance.onSubmit({retraso_horas:-1,pasajeros:2,fecha:"04-08-2020"});
+    expect(fixture.componentInstance.valores_erroneos).toEqual(true);
+  })
+
+  it('Verificar que si el valor de pasajeros es negativo la variable valores_erroneos cambie a true',()=>{
+    expect(fixture.componentInstance.valores_erroneos).toEqual(false);
+    fixture.componentInstance.onSubmit({retraso_horas:2,pasajeros:-2,fecha:"04-08-2020"});
+    expect(fixture.componentInstance.valores_erroneos).toEqual(true);
+  })
+
+  it('Verificar que si la fecha es mayor a la actual, la variable valores_erroneos cambie a true',()=>{
+    expect(fixture.componentInstance.valores_erroneos).toEqual(false);
+    fixture.componentInstance.onSubmit({retraso_horas:1,pasajeros:2,fecha:"04-10-2024"});
+    expect(fixture.componentInstance.valores_erroneos).toEqual(true);
+  })
+
+  it('No permitir el ingreso de fechas vacias',()=>{
+    expect(fixture.componentInstance.fecha_invalida).toEqual(false);
+    fixture.componentInstance.onSubmitFechas({fecha_inicial:"",fecha_final:""});
+    expect(fixture.componentInstance.fecha_invalida).toEqual(true);
+  })
+
 
   
 });

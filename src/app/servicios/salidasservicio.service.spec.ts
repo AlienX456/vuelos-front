@@ -5,6 +5,7 @@ import { SalidasservicioService } from './salidasservicio.service';
 import { HttpClientTestingModule,HttpTestingController } from '@angular/common/http/testing';
 
 import {Rango} from 'src/app/interfaces/rango'
+import { Salida } from '../interfaces/salida';
 
 describe('SalidasservicioService', () => {
   let httpTestingController: HttpTestingController;
@@ -69,7 +70,35 @@ describe('SalidasservicioService', () => {
 
     req.flush(mockSalida);
 
-  })
+  });
+
+  it('El objeto observable en POST debe responder con estado creado',()=>{
+    const mockSalida: Salida = {
+      vuelo: "AV255",
+      fecha: "2020-08-04T20:20:10.000Z",
+      retraso_horas: 5,
+      destino_ciudad: "Toronto",
+      internacional: true,
+      aerolinea: "Air Canada",
+      pasajeros: 100,
+      avion: "787-7"
+    }
+
+    service.postSalida(mockSalida).subscribe(
+      data => {
+        expect(data).toEqual("");
+      }
+    );
+
+    const req = httpTestingController.expectOne('https://1teamqncdh.execute-api.us-east-1.amazonaws.com/test/gate/gate-salida/salida');
+
+    expect(req.request.body).toEqual(mockSalida);
+
+    expect(req.request.method).toEqual('POST');
+
+    req.flush("",{ status: 201, statusText:"created"});
+
+  });
 
 
 
