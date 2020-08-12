@@ -42,6 +42,9 @@ export class SalidasComponent implements OnInit {
   }
 
   onSubmit(salida) {
+    
+    console.log(salida);
+
     this.exito = false;
     this.fracaso = false;
     this.valores_erroneos = false;
@@ -53,10 +56,13 @@ export class SalidasComponent implements OnInit {
     }else{
       let cuerpo : Salida = salida;
       this.salidasservicioService.postSalida(cuerpo).subscribe(
-        data=>{
-          this.exito = true;
-        },
+        data =>{
+            console.log(data);
+            this.exito = true;
+        }
+        ,
         error=>{
+          console.log(error);
           this.fracaso = true;
 
         }

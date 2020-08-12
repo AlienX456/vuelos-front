@@ -45,7 +45,7 @@ describe('SalidasComponent', () => {
 
   it('Verificar que el valor de la variable exito cambie a true cuando se enviaron los datos', async(() => {
 
-    spyOn(service, 'postSalida').and.returnValue(of({status: 201}));
+    spyOn(service, 'postSalida').and.returnValue(of(""));
     fixture.componentInstance.onSubmit(form_valido);
     fixture.whenStable().then(()=>{ expect(fixture.componentInstance.exito).toEqual(true)})
     }))

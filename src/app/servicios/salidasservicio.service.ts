@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Salida } from 'src/app/interfaces/salida'
 import { Rango } from 'src/app/interfaces/rango'
 
@@ -24,6 +24,7 @@ export class SalidasservicioService {
   }
 
   postSalida(salida: Salida){
-    return this.http.post(this.url,JSON.stringify(salida));
+
+    return this.http.post(this.url,salida,{headers:{'Content-Type':'application/json'},'responseType': "text" });
   }
 }
