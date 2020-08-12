@@ -3,70 +3,94 @@
   <div class="w-100 rounded bg-primary"><p class="text-center my-1 text-light">Formato Carta de Salida</p></div>
 
 
-<form [formGroup]="salidaForm" class="w-100" (ngSubmit)="onSubmit(salidaForm.value)">
+  <form [formGroup]="salidaForm" class="w-100" (ngSubmit)="onSubmit(salidaForm.value)">
 
-    <div>
-      <label for="vuelo">
-        Vuelo
-      </label>
-      <input class="w-100" id="vuelo" type="text" formControlName="vuelo">
-    </div>
-
-    <div>
-        <label for="fecha">
-          Fecha
+      <div>
+        <label for="vuelo">
+          Vuelo
         </label>
-        <input class="w-100" id="fecha" type="date" formControlName="fecha">
-    </div>
+        <input class="w-100" id="vuelo" type="text" formControlName="vuelo">
+      </div>
 
-    <div>
-        <label for="retraso_horas">
-          Retraso (Horas)
-        </label>
-        <input class="w-100" id="retraso_horas" type="Number" formControlName="retraso_horas">
-    </div>
+      <div>
+          <label for="fecha">
+            Fecha
+          </label>
+          <input class="w-100" id="fecha" type="date" formControlName="fecha">
+      </div>
 
-    <div>
-        <label for="destino_ciudad">
-          Destino
-        </label>
-        <input class="w-100" id="destino_ciudad" type="text" formControlName="destino_ciudad">
-    </div>
-  
-    <div>
-      <label for="internacional">
-        Internacional
-      </label>
-      <input id="internacional" type="checkbox" formControlName="internacional">
-    </div>
+      <div>
+          <label for="retraso_horas">
+            Retraso (Horas)
+          </label>
+          <input class="w-100" id="retraso_horas" type="Number" formControlName="retraso_horas">
+      </div>
 
-    <div>
-        <label for="aerolinea">
-          Aerolinea
-        </label>
-        <input class="w-100" id="aerolinea" type="text" formControlName="aerolinea">
-    </div>
-
-    <div>
-        <label for="pasajeros">
-          Pasajeros
-        </label>
-        <input class="w-100" id="pasajeros" type="number" formControlName="pasajeros">
-    </div>
+      <div>
+          <label for="destino_ciudad">
+            Destino
+          </label>
+          <input class="w-100" id="destino_ciudad" type="text" formControlName="destino_ciudad">
+      </div>
     
-    <div>
-        <label for="avion">
-            Avion
+      <div>
+        <label for="internacional">
+          Internacional
         </label>
-        <input class="w-100" id="avion" type="text" formControlName="avion">
-    </div>
-  
-    <button class="button btn bg-success text-light my-5" type="submit">Subir</button>
+        <input id="internacional" type="checkbox" formControlName="internacional">
+      </div>
 
-    <p *ngIf="valores_erroneos">Verifique los campos numericos y fecha</p>
-    <p *ngIf="exito">Información subida con exito!</p>
-    <p *ngIf="fracaso">Hay problemas con la subida</p>
-  
-  </form>
+      <div>
+          <label for="aerolinea">
+            Aerolinea
+          </label>
+          <input class="w-100" id="aerolinea" type="text" formControlName="aerolinea">
+      </div>
 
-</div>
+      <div>
+          <label for="pasajeros">
+            Pasajeros
+          </label>
+          <input class="w-100" id="pasajeros" type="number" formControlName="pasajeros">
+      </div>
+      
+      <div>
+          <label for="avion">
+              Avion
+          </label>
+          <input class="w-100" id="avion" type="text" formControlName="avion">
+      </div>
+    
+      <button class="button btn bg-success text-light my-5" type="submit">Subir</button>
+
+      <p *ngIf="valores_erroneos">Verifique los campos numericos y fecha</p>
+      <p *ngIf="exito">Información subida con exito!</p>
+      <p *ngIf="fracaso">Hay problemas con la subida</p>
+    
+    </form>
+  </div>
+  
+<form [formGroup]="getSalidasForm" (ngSubmit)="onSubmitFechas(getSalidasForm.value)">
+
+  <div class="row w-50 my-5 mx-auto">
+      <div class="col-6 text-center">
+        <label class="mr-2" for="fecha_inicio">
+          Fecha Inicial
+        </label>
+        <input id="fecha_inicio" type="date" formControlName="fecha_inicio">
+      </div>
+
+      <div class="col-6 text-center">
+        <label class="mr-2" for="fecha_final">
+          Fecha Final
+        </label>
+        <input  id="fecha_final" type="date" formControlName="fecha_final">
+      </div>
+
+      <div class="col text-center">
+        <button class="button btn bg-success text-light my-5" type="submit">Buscar</button>
+      </div>
+  </div>
+
+</form>
+

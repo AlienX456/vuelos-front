@@ -5,6 +5,7 @@ import { HttpClientTestingModule} from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { throwError } from 'rxjs';
+import { Salida } from 'src/app/interfaces/salida'
 
 describe('SalidasComponent', () => {
   let component: SalidasComponent;
@@ -56,5 +57,45 @@ describe('SalidasComponent', () => {
     fixture.componentInstance.onSubmit(form_valido);
     fixture.whenStable().then(()=>{ expect(fixture.componentInstance.fracaso).toEqual(true)})
     }))
+
+  it('Verificar que la fecha inicial debe menor a la final', () => {
+    fixture.componentInstance.onSubmitFechas({fecha_inicio : '2020-04-03',fecha_final:'2020-03-02'});
+    expect(fixture.componentInstance.fecha_invalida).toEqual(true);
+    fixture.componentInstance.onSubmitFechas({fecha_inicio : '2020-04-03',fecha_final:'2020-04-03'});
+    expect(fixture.componentInstance.fecha_invalida).toEqual(true);
+    fixture.componentInstance.onSubmitFechas({fecha_inicio : '2020-03-03',fecha_final:'2020-04-03'});
+    expect(fixture.componentInstance.fecha_invalida).toEqual(false);
+    })
+
+  it('Verificar que en el submit correcto el arreglo de salidas sea llenado', async(() =>{
+    let mockSalidas : Salida[] = [
+      {
+        vuelo: "AV244",
+        fecha: "2020-08-04T20:20:10.000Z",
+        retraso_horas: 5,
+        destino_ciudad: "Toronto",
+        internacional: true,
+        aerolinea: "Air Canada",
+        pasajeros: 100,
+        avion: "787-7"
+      },
+      {
+        vuelo: "AV255",
+        fecha: "2020-08-04T20:20:10.000Z",
+        retraso_horas: 5,
+        destino_ciudad: "Toronto",
+        internacional: true,
+        aerolinea: "Air Canada",
+        pasajeros: 100,
+        avion: "787-7"
+      },
+    ]
+    spyOn(service, 'getSalidas').and.returnValue(of(mockSalidas));
+    fixture.componentInstance.onSubmitFechas({fecha_inicio : '2020-03-03',fecha_final:'2020-04-03'});
+    fixture.whenStable().then(()=>{expect(fixture.componentInstance.salidas).toEqual(mockSalidas);})
+    })
+  );
+
+
   
 });

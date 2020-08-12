@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SalidasservicioService } from 'src/app/servicios/salidasservicio.service'
 import { Salida } from 'src/app/interfaces/salida';
 import { error } from '@angular/compiler/src/util';
+import { Rango } from 'src/app/interfaces/rango';
 
 @Component({
   selector: 'app-salidas',
@@ -15,6 +16,9 @@ export class SalidasComponent implements OnInit {
   exito;
   fracaso;
   valores_erroneos;
+  getSalidasForm;
+  fecha_invalida;
+  salidas:Salida[];
 
   constructor(private formBuilder: FormBuilder,
               private salidasservicioService :SalidasservicioService,
@@ -31,9 +35,17 @@ export class SalidasComponent implements OnInit {
                 avion: ''
               });
 
+              this.getSalidasForm = this.formBuilder.group({
+                fecha_inicio : '',
+                fecha_final:''
+              });
+
               this.exito = false;
               this.fracaso = false;
               this.valores_erroneos = false;
+              this.fecha_invalida = false;
+
+              this.salidas = null;
               
               }
 
@@ -69,6 +81,29 @@ export class SalidasComponent implements OnInit {
         }
       )
     }
+  }
+
+
+  onSubmitFechas(fechas){
+
+    this.fecha_invalida = false;
+
+    let fi = new Date(fechas.fecha_inicio);
+
+    let ff = new Date(fechas.fecha_final);
+
+    if (fi >= ff){
+      this.fecha_invalida = true
+    }else{
+
+      let param_fecha : Rango = fechas;  
+
+      this.salidasservicioService.getSalidas(param_fecha).subscribe(
+        data => { this.salidas = data; console.log(data)}
+      );
+
+    }
+
   }
 
 

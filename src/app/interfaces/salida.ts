@@ -1,6 +1,6 @@
 export interface Salida {
     vuelo: String,
-    fecha: Date,
+    fecha: String,
     retraso_horas: Number,
     destino_ciudad: String,
     internacional: Boolean,

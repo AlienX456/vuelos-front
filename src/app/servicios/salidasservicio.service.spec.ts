@@ -59,6 +59,7 @@ describe('SalidasservicioService', () => {
       data => {
         expect(data.length).toEqual(mockSalida.length);
         expect(data[0].vuelo).toEqual(mockSalida[0].vuelo);
+        expect(data[0].fecha).toEqual(mockSalida[0].fecha);
       }
     );
 
