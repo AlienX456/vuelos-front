@@ -87,10 +87,16 @@
         <input  id="fecha_final" type="date" formControlName="fecha_final">
       </div>
 
-      <div class="col text-center">
+      <div class="col-12 text-center">
         <button class="button btn bg-success text-light my-5" type="submit">Buscar</button>
-        <p *ngIf="sin_resultados"> No hay resultados, intente más tarde</p>
       </div>
+
+      <div class="col-12 text-center">
+        <p *ngIf="sin_resultados"> No hay resultados, intente más tarde</p>
+        <p *ngIf="fecha_invalida"> El rango de tiempo es invalido</p>
+        <p *ngIf="error_busqueda"> Hubo un error intente mas tarde</p>
+      </div>
+
   </div>
 
 </form>

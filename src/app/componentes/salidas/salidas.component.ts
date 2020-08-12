@@ -92,28 +92,39 @@ export class SalidasComponent implements OnInit {
 
   onSubmitFechas(fechas){
 
+    console.log(fechas)
+
     this.fecha_invalida = false;
+    this.sin_resultados = false;
+    this.error_busqueda = false;
 
-    let fi = new Date(fechas.fecha_inicio);
-
-    let ff = new Date(fechas.fecha_final);
-
-    if (fi >= ff){
-      this.fecha_invalida = true
+    if (fechas.fecha_inicio == "" || fechas.fecha_final == ""){
+      this.fecha_invalida = true;
     }else{
 
-      let param_fecha : Rango = fechas;  
+      let fi = new Date(fechas.fecha_inicio);
 
-      this.salidasservicioService.getSalidas(param_fecha).subscribe(
-        data => { 
-          if (data.length == 0){
-            this.sin_resultados = true;
-          }else{
-            this.salidas = data;
-          }
-        },
-        error => {this.error_busqueda = true}
-      );
+      let ff = new Date(fechas.fecha_final);
+  
+      if (fi >= ff){
+        this.fecha_invalida = true
+      }else{
+  
+        let param_fecha : Rango = fechas;  
+  
+        this.salidasservicioService.getSalidas(param_fecha).subscribe(
+          data => {
+            console.log("--"+data) 
+            if (data.length == 0){
+              this.sin_resultados = true;
+            }else{
+              this.salidas = data;
+            }
+          },
+          error => {this.error_busqueda = true}
+        );
+  
+      }
 
     }
 
