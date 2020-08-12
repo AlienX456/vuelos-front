@@ -61,6 +61,10 @@
     </div>
   
     <button class="button" type="submit">Subir</button>
+
+    <p *ngIf="valores_erroneos">Verifique los campos numericos y fecha</p>
+    <p *ngIf="exito">Información subida con exito!</p>
+    <p *ngIf="fracaso">Hay problemas con la subida</p>
   
   </form>
 

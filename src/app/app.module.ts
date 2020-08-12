@@ -9,7 +9,8 @@ import { SalidasComponent } from './componentes/salidas/salidas.component';
 import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.component';
 import { MenuComponent } from './componentes/menu/menu.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'  
 
 @NgModule({
   declarations: [
@@ -21,10 +22,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
     MenuComponent
   ],
   imports: [
+    FormsModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    FormBuilder,
     ReactiveFormsModule 
   ],
   providers: [],

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SalidasservicioService } from 'src/app/servicios/salidasservicio.service'
+import { Salida } from 'src/app/interfaces/salida';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-salidas',
@@ -10,6 +12,9 @@ import { SalidasservicioService } from 'src/app/servicios/salidasservicio.servic
 export class SalidasComponent implements OnInit {
 
   salidaForm;
+  exito;
+  fracaso;
+  valores_erroneos;
 
   constructor(private formBuilder: FormBuilder,
               private salidasservicioService :SalidasservicioService,
@@ -26,6 +31,9 @@ export class SalidasComponent implements OnInit {
                 avion: ''
               });
 
+              this.exito = false;
+              this.fracaso = false;
+              this.valores_erroneos = false;
               
               }
 
@@ -34,7 +42,27 @@ export class SalidasComponent implements OnInit {
   }
 
   onSubmit(salida) {
-    console.log('something')
+    this.exito = false;
+    this.fracaso = false;
+    this.valores_erroneos = false;
+    
+    let current_date = new Date();
+
+    if ( salida.retraso_horas < 0 || salida.pasajeros < 0 || (new Date(salida.fecha) > current_date)) {
+      this.valores_erroneos = true;
+    }else{
+      let cuerpo : Salida = salida;
+      this.salidasservicioService.postSalida(cuerpo).subscribe(
+        data=>{
+          this.exito = true;
+        },
+        error=>{
+          this.fracaso = true;
+
+        }
+      )
+    }
   }
+
 
 }
