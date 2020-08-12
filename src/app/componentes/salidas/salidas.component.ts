@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { SalidasservicioService } from 'src/app/servicios/salidasservicio.service'
 
 @Component({
   selector: 'app-salidas',
@@ -7,9 +9,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalidasComponent implements OnInit {
 
-  constructor() { }
+  salidaForm;
+
+  constructor(private formBuilder: FormBuilder,
+              private salidasservicioService :SalidasservicioService,
+              private reactiveFormsModule:ReactiveFormsModule ) { 
+
+              this.salidaForm = this.formBuilder.group({
+                vuelo: '',
+                fecha: '',
+                retraso_horas: 0,
+                destino_ciudad: '',
+                internacional: '',
+                aerolinea: '',
+                pasajeros: 0,
+                avion: ''
+              });
+
+              
+              }
 
   ngOnInit(): void {
+
+  }
+
+  onSubmit(salida) {
+    console.log('something')
   }
 
 }

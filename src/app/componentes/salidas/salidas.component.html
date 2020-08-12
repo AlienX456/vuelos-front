@@ -1,1 +1,67 @@
-<p>salidas works!</p>
+<div class="row w-25 mx-auto border">
+<div class="w-100 bg-primary"><p class="text-light">Formato Carta de Salida</p></div>
+
+
+<form [formGroup]="salidaForm" (ngSubmit)="onSubmit(salidaForm.value)">
+
+    <div>
+      <label for="vuelo">
+        Vuelo
+      </label>
+      <input id="vuelo" type="text" formControlName="vuelo">
+    </div>
+
+    <div>
+        <label for="fecha">
+          Fecha
+        </label>
+        <input id="fecha" type="date" formControlName="fecha">
+    </div>
+
+    <div>
+        <label for="retraso_horas">
+          Retraso (Horas)
+        </label>
+        <input id="retraso_horas" type="Number" formControlName="retraso_horas">
+    </div>
+
+    <div>
+        <label for="destino_ciudad">
+          Destino
+        </label>
+        <input id="destino_ciudad" type="text" formControlName="destino_ciudad">
+    </div>
+  
+    <div>
+      <label for="internacional">
+        Internacional
+      </label>
+      <input id="internacional" type="checkbox" formControlName="internacional">
+    </div>
+
+    <div>
+        <label for="aerolinea">
+          Aerolinea
+        </label>
+        <input id="aerolinea" type="text" formControlName="aerolinea">
+    </div>
+
+    <div>
+        <label for="pasajeros">
+          Pasajeros
+        </label>
+        <input id="pasajeros" type="number" formControlName="pasajeros">
+    </div>
+    
+    <div>
+        <label for="avion">
+            Avion
+        </label>
+        <input id="avion" type="text" formControlName="avion">
+    </div>
+  
+    <button class="button" type="submit">Subir</button>
+  
+  </form>
+
+</div>
