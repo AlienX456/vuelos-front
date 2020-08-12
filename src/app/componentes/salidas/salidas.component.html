@@ -1,1 +1,145 @@
-<p>salidas works!</p>
+<div class="row w-25 my-5 mx-auto">
+
+  <div class="w-100 rounded bg-primary"><p class="text-center my-1 text-light">Formato Carta de Salida</p></div>
+
+
+  <form [formGroup]="salidaForm" class="w-100" (ngSubmit)="onSubmit(salidaForm.value)">
+
+      <div>
+        <label for="vuelo">
+          Vuelo
+        </label>
+        <input class="w-100" id="vuelo" type="text" formControlName="vuelo">
+      </div>
+
+      <div>
+          <label for="fecha">
+            Fecha
+          </label>
+          <input class="w-100" id="fecha" type="date" formControlName="fecha">
+      </div>
+
+      <div>
+          <label for="retraso_horas">
+            Retraso (Horas)
+          </label>
+          <input class="w-100" id="retraso_horas" type="Number" formControlName="retraso_horas">
+      </div>
+
+      <div>
+          <label for="destino_ciudad">
+            Destino
+          </label>
+          <input class="w-100" id="destino_ciudad" type="text" formControlName="destino_ciudad">
+      </div>
+    
+      <div>
+        <label for="internacional">
+          Internacional
+        </label>
+        <input id="internacional" type="checkbox" formControlName="internacional">
+      </div>
+
+      <div>
+          <label for="aerolinea">
+            Aerolinea
+          </label>
+          <input class="w-100" id="aerolinea" type="text" formControlName="aerolinea">
+      </div>
+
+      <div>
+          <label for="pasajeros">
+            Pasajeros
+          </label>
+          <input class="w-100" id="pasajeros" type="number" formControlName="pasajeros">
+      </div>
+      
+      <div>
+          <label for="avion">
+              Avion
+          </label>
+          <input class="w-100" id="avion" type="text" formControlName="avion">
+      </div>
+    
+      <button class="button btn bg-success text-light my-5" type="submit">Subir</button>
+
+      <p *ngIf="valores_erroneos">Verifique los campos numericos y fecha</p>
+      <p *ngIf="exito">Información subida con exito!</p>
+      <p *ngIf="fracaso">Hay problemas con la subida</p>
+    
+    </form>
+  </div>
+
+<form [formGroup]="getSalidasForm" (ngSubmit)="onSubmitFechas(getSalidasForm.value)">
+
+  <div class="row w-50 my-5 mx-auto">
+      <div class="col-6 text-center">
+        <label class="mr-2" for="fecha_inicio">
+          Fecha Inicial
+        </label>
+        <input id="fecha_inicio" type="date" formControlName="fecha_inicio">
+      </div>
+
+      <div class="col-6 text-center">
+        <label class="mr-2" for="fecha_final">
+          Fecha Final
+        </label>
+        <input  id="fecha_final" type="date" formControlName="fecha_final">
+      </div>
+
+      <div class="col-12 text-center">
+        <button class="button btn bg-success text-light my-5" type="submit">Buscar</button>
+      </div>
+
+      <div class="col-12 text-center">
+        <p *ngIf="sin_resultados"> No hay resultados, intente más tarde</p>
+        <p *ngIf="fecha_invalida"> El rango de tiempo es invalido</p>
+        <p *ngIf="error_busqueda"> Hubo un error intente mas tarde</p>
+      </div>
+
+  </div>
+
+</form>
+
+
+<div *ngIf="!!salidas" class="row w-75 my-5 mx-auto justify-content-around">
+  <div class="col-3 card pt-2" *ngFor="let salida of salidas">
+    <img class="card-img-top" src="/assets/imagenes/despegue.jpg" alt="Card image cap">
+    <div class="card-header px-0 v-1 text-center">Vuelo {{salida.vuelo}}</div>
+    <div class="card-body px-0 text-white">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Fecha</td>
+            <td class="v-2">{{salida.fecha}}</td>
+          </tr>
+          <tr>
+            <td>Retraso (Horas)</td>
+            <td class="v-3">{{salida.retraso_horas}}</td>
+          </tr>
+          <tr>
+            <td>Destino</td>
+            <td class="v-4">{{salida.destino_ciudad}}</td>
+          </tr>
+          <tr>
+            <td>Internacional</td>
+            <td class="v-5">{{salida.internacional}}</td>
+          </tr>
+          <tr>
+            <td>Aerolinea</td>
+            <td class="v-6">{{salida.aerolinea}}</td>
+          </tr>
+          <tr>
+            <td>Pasajeros</td>
+            <td class="v-7">{{salida.pasajeros}}</td>
+          </tr>
+          <tr>
+            <td>Avion</td>
+            <td class="v-8">{{salida.avion}}</td>
+          </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
