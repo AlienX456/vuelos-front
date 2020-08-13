@@ -1,8 +1,10 @@
 version: 2.1
 
+orbs:
+  s3: ngs/s3-deploy@0.0.1
 
 jobs:
-    test:
+    test-build:
       docker:
         - image: circleci/node:14.4-browsers
       steps:
@@ -16,11 +18,30 @@ jobs:
         - run:
             name: Running unit test
             command: node_modules/@angular/cli/bin/ng test -- --browsers ChromeHeadless --watch=false
+        - run:
+            name: Building project
+            command: node_modules/@angular/cli/bin/ng build --prod 
+        - persist_to_workspace:
+            root: ./dist
+            paths:
+              - vuelos-front
+
+
 
 
 
 workflows:
     angular-test:
         jobs:
-         - test
+         - test-build
+         - s3/deploy:
+            requires:
+              - test-build
+            filters:
+              branches:
+                only: desarrollo
+            workspace: .
+            artifacts: vuelos-front
+            bucket: vuelos-front
+            cloudfront_distribution_id: E3THLYYHD946O5
             
