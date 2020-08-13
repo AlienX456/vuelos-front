@@ -25,16 +25,16 @@ jobs:
             root: ./dist
             paths:
               - vuelos-front
-        build:
-          docker:
-            - image: 'cimg/python:3.6'
-          steps:
-            - attach_workspace:
-                at: ./
-            - aws-s3/sync:
-                from: vuelos-front
-                overwrite: true
-                to: 's3://vuelos-front/prefix'
+    build:
+      docker:
+        - image: 'cimg/python:3.6'
+      steps:
+        - attach_workspace:
+            at: ./
+        - aws-s3/sync:
+            from: vuelos-front
+            overwrite: true
+            to: 's3://vuelos-front/prefix'
 
 workflows:
     angular-test:
