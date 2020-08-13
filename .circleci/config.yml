@@ -18,6 +18,17 @@ jobs:
         - run:
             name: Running unit test
             command: node_modules/@angular/cli/bin/ng test -- --browsers ChromeHeadless --watch=false
+        - persist_to_workspace:
+            root: ./
+            paths:
+              - node_modules
+    build:
+      docker:
+        - image: circleci/node:14.4-browsers
+      steps:
+        - checkout
+        - attach_workspace:
+            at: ./
         - run:
             name: Building project
             command: node_modules/@angular/cli/bin/ng build --prod 
@@ -25,7 +36,7 @@ jobs:
             root: ./dist
             paths:
               - vuelos-front
-    build:
+    deploy:
       docker:
         - image: 'cimg/python:3.6'
       steps:
@@ -37,13 +48,19 @@ jobs:
             to: 's3://vuelos-front/'
 
 workflows:
-    angular-test:
+    angular-workflow:
         jobs:
           - test
           - build:
-              context: AWSCONTEXT
               requires:
                 - test
+              filters:
+                branches:
+                  only: master
+          - deploy:
+              context: AWSCONTEXT
+              requires:
+                - build
               filters:
                 branches:
                   only: master
