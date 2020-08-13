@@ -34,7 +34,7 @@ jobs:
         - aws-s3/sync:
             from: vuelos-front
             overwrite: true
-            to: 's3://vuelos-front/prefix'
+            to: 's3://vuelos-front/'
 
 workflows:
     angular-test:
