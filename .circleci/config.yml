@@ -18,6 +18,10 @@ jobs:
         - run:
             name: Running unit test
             command: node_modules/@angular/cli/bin/ng test -- --browsers ChromeHeadless --watch=false
+        - persist_to_workspace:
+            root: ./
+            paths:
+              - node_modules
     build:
       docker:
         - image: circleci/node:14.4-browsers
@@ -50,16 +54,16 @@ workflows:
           - build:
               requires:
                 - test
-              filters:
-                branches:
-                  only: master
+              # filters:
+              #   branches:
+              #     only: master
           - deploy:
               context: AWSCONTEXT
               requires:
                 - build
-              filters:
-                branches:
-                  only: master
+              # filters:
+              #   branches:
+              #     only: master
           
         
             
