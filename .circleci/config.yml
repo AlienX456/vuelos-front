@@ -1,10 +1,10 @@
 version: 2.1
 
 orbs:
-  s3: ngs/s3-deploy@0.0.1
+  aws-s3: circleci/aws-s3@x.y
 
 jobs:
-    test-build:
+    test:
       docker:
         - image: circleci/node:14.4-browsers
       steps:
@@ -25,23 +25,25 @@ jobs:
             root: ./dist
             paths:
               - vuelos-front
-
-
-
-
+        build:
+          docker:
+            - image: 'cimg/python:3.6'
+          steps:
+            - attach_workspace:
+                at: ./
+            - aws-s3/sync:
+                from: vuelos-front
+                overwrite: true
+                to: 's3://vuelos-front/prefix'
 
 workflows:
     angular-test:
         jobs:
-         - test-build
-         - s3/deploy:
-            requires:
-              - test-build
-            filters:
-              branches:
-                only: desarrollo
-            workspace: .
-            artifacts: vuelos-front
-            bucket: vuelos-front
-            cloudfront_distribution_id: E3THLYYHD946O5
+          - test
+          - build:
+              context: AWSCONTEXT
+              requires:
+                - test
+          
+        
             
