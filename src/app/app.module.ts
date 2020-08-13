@@ -3,24 +3,30 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './componentes/header/header.component';
 import { LogInComponent } from './componentes/log-in/log-in.component';
 import { LlegadasComponent } from './componentes/llegadas/llegadas.component';
 import { SalidasComponent } from './componentes/salidas/salidas.component';
 import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.component';
+import { MenuComponent } from './componentes/menu/menu.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'  
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     LogInComponent,
     LlegadasComponent,
     SalidasComponent,
-    EstadisticasComponent
+    EstadisticasComponent,
+    MenuComponent
   ],
   imports: [
+    FormsModule,
+    HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

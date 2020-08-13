@@ -1,22 +1,69 @@
 version: 2.1
 
+orbs:
+  aws-s3: circleci/aws-s3@1.0.16
 
 jobs:
     test:
       docker:
-        - image: node:14.4-alpine3.12
+        - image: circleci/node:14.4-browsers
       steps:
         - checkout
         - run:
-            name: install packages
+            name: Install angular-cli
+            command: npm install @angular/cli 
+        - run:
+            name: Install packages
             command: npm install
         - run:
             name: Running unit test
-            command: npm test
-
+            command: node_modules/@angular/cli/bin/ng test -- --browsers ChromeHeadless --watch=false
+        - persist_to_workspace:
+            root: ./
+            paths:
+              - node_modules
+    build:
+      docker:
+        - image: circleci/node:14.4-browsers
+      steps:
+        - checkout
+        - attach_workspace:
+            at: ./
+        - run:
+            name: Building project
+            command: node_modules/@angular/cli/bin/ng build --prod 
+        - persist_to_workspace:
+            root: ./dist
+            paths:
+              - vuelos-front
+    deploy:
+      docker:
+        - image: 'cimg/python:3.6'
+      steps:
+        - attach_workspace:
+            at: ./
+        - aws-s3/sync:
+            from: vuelos-front
+            overwrite: true
+            to: 's3://vuelos-front/'
 
 workflows:
-    angular-test:
+    angular-workflow:
         jobs:
-         - test
+          - test
+          - build:
+              requires:
+                - test
+              filters:
+                branches:
+                  only: master
+          - deploy:
+              context: AWSCONTEXT
+              requires:
+                - build
+              filters:
+                branches:
+                  only: master
+          
+        
             
